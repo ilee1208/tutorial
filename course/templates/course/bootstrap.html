@@ -1,0 +1,1906 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block sidebar %}
+<div class="col-sm-3">
+    {% include './sidebar.html' %}
+</div>
+{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+
+	#point1{
+		background-color:green;
+	}
+	#point2{
+		background-color:blue;
+	}
+	#point3{
+		background-color:yellow;
+	}
+	.flex-container{
+		display:flex;
+		flex-direction:row;
+		background-color:DodgerBlue;
+	}
+</style>
+
+<div id="bootstrap" class="col-sm-9 ">
+    container, container-fluid(해당화면 전체 채움)차이
+    <!--중요 :::::
+    한글 웹폰트 바꾸어 사용하기 위해서는 bootstrap.min.css파일을 열어 아래내용을 가장 밑에 추가 해주어야
+	@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+	html.body{font-family:nanumgothic !important;} -->
+	<!-- 텍스트 및 링크에 걸린 텍스트 모두 색상 적용 -->
+
+	1: Grid system
+
+	col : 균등한 분배
+	<div class="row">
+		<div class="col" id="point">.col</div>
+		<div class="col" id="point">.col</div>
+		<div class="col" id="point">.col</div>
+	</div>
+
+	sm 576px 미만 부터 mobile  span4 적용
+	<div class="row">
+		<div class="col-4" id="point1">.col-4</div>
+		<div class="col-6" id="point2">.col-6</div>
+		<div class="col-2" id="point3">.col-2</div>
+	</div>
+	sm : 576-768 px 이하 테블릿
+	<div class="row">
+		<div class="col-sm-4" id="point1">.col-sm-4</div>
+		<div class="col-sm-4" id="point2">.col-sm-4</div>
+		<div class="col-sm-4" id="point3">.col-sm-4</div>
+	</div>
+	md : 768-992 px
+	<div class="row">
+		<div class="col-md-4" id="point1">.col-md-4</div>
+		<div class="col-md-4" id="point2">.col-md-4</div>
+		<div class="col-md-4" id="point3">.col-md-4</div>
+	</div>
+	lg : 992-1200 px
+	<div class="row"> <!-- lg : 992-1200 px -->
+		<div class="col-lg-4" id="point1">.col-lg-4</div>
+		<div class="col-lg-4" id="point2">.col-lg-4</div>
+		<div class="col-lg-4" id="point3">.col-lg-4</div>
+	</div>
+	 xl : 1200 px 이 상
+	<div class="row"> <!-- -->
+		<div class="col-xl-4" id="point1">.col-xl-4</div>
+		<div class="col-xl-4" id="point2">.col-xl-4</div>
+		<div class="col-xl-4" id="point3">.col-xl-4</div>
+	</div>
+
+	offset : 해당부분을 제외(좌 col-3 => 3-6-3
+	<div class="col-sm-6 offset-sm-3" >offset</div>
+
+    clearfix : grid height 불일치할때 앞 부분을 정리하고 다음부터 새롭게 시작
+	<!--<div class="clearfix visible-xs-block></div>-->
+
+	2:  Width 조정  : w-xx  mx-xx : maxium width"
+	<div class="w-25 bg-success">Width 25%</div>
+	<div class="w-50 bg-warning">Width 50%</div>
+	<div class="w-75 bg-secondary">Width 75%</div>
+	<div class="w-100 bg-warning">Width 100%</div>
+	<div class="mw-100 bg-secondary">Max Width 100%</div>
+
+	Height 조정  class="h-xx(%)"  mh : maxium height
+	<div style="height:200px;background-color:#ddd">
+	  <div class="h-25 bg-warning">Height 25%</div>
+	  <div class="h-50 bg-warning">Height 50%</div>
+	  <div class="h-75 bg-warning">Height 75%</div>
+	  <div class="h-100 bg-warning">Height 100%</div>
+	  <div class="mh-100 bg-warning" style="height:500px">Max Height 100%</div>
+	</div>
+
+	3: Spacing <br/>
+	xs (<=576px), sm (>=576px), md (>=768px), lg (>=992px) or xl (>=1200px)):<br/>
+
+	The classes are used in the format: {property}{sides}-{size} for xs and {property}{sides}-{breakpoint}-{size} for sm, md, lg, and xl.<br/>
+
+	Where property is one of:<br/>
+
+	m - sets margin
+	p - sets padding<br/>
+
+	Where sides is one of:<br/>
+
+	t - sets margin-top or padding-top<br/>
+	b - sets margin-bottom or padding-bottom<br/>
+	l - sets margin-left or padding-left<br/>
+	r - sets margin-right or padding-right<br/>
+	x - sets both padding-left and padding-right or margin-left and margin-right<br/>
+	y - sets both padding-top and padding-bottom or margin-top and margin-bottom<br/>
+	blank - sets a margin or padding on all 4 sides of the element<br/>
+
+	Where size is one of:<br/>
+
+	0 - sets margin or padding to 0<br/>
+	1 - sets margin or padding to .25rem (4px if font-size is 16px)<br/>
+	2 - sets margin or padding to .5rem (8px if font-size is 16px)<br/>
+	3 - sets margin or padding to 1rem (16px if font-size is 16px)<br/>
+	4 - sets margin or padding to 1.5rem (24px if font-size is 16px)<br/>
+	5 - sets margin or padding to 3rem (48px if font-size is 16px)<br/>
+	auto - sets margin to auto<br/>
+
+	<div class="pt-4 bg-warning">I only have a top padding (1.5rem = 24px)</div>
+	<div class="p-5 bg-success">I have a padding on all sides (3rem = 48px)</div>
+	<div class="m-5 pb-5 bg-info">I have a margin on all sides (3rem = 48px) and a bottom padding (3rem = 48px)</div>
+
+
+	4.  Display Frame(횡적/종적)<br/>
+    div 태그를 횡적으로 열거 하고 싶을때 : class="row"
+	<div class="row">
+		<div class="bg-success float-left">left</div>
+		<div class="bg-primary mx-auto">middle</div>
+		<div class="bg-secondary float-right">right</div>
+	</div>
+
+    목록 여백을 없애고 횡적으로 나열하고 원한다면 ul태그에 class="list-inline"
+	inline에 목록태그를  없애고 싶을때   :  class="list-unstyled"
+	<ul class="list-inline">
+		<li class="list-inline-item border">Aaaaaaaaaaa</li>
+		<li class="list-inline-item border">Bbbbbbbb</li>
+		<li class="list-inline-item border">Ccccccccccc</li>
+	</ul><br/>
+
+	5: text : 제목
+	<h1> h1 heading </h1>
+	<h2> h2 heading </h2>
+	<h3> h3 heading </h3>
+	<h4> h4 heading </h4>
+	<h5> h5 heading </h5>
+	<br/>
+
+	제목에 클래스 추가 모양/크기 변경  :  display-1,2,3,4
+	<h1> h1 heading </h1>
+	<h2 class="display-1"> display-1 </h2>
+	<h2 class="display-2"> display-2 </h2>
+	<h2 class="display-3"> display-3 </h2>
+	<h2 class="display-4"> display-4 </h2>
+
+	기존 크기 한단계 작게 : small
+	<h2>h2 heading <small>secondary text</small></h2>
+
+	강조 효과 : 연한 노란 배경색과 약간의 내부 여백 제공 : mark
+	<p>이글은 연습이 아닌 <mark>실제상황입니다</mark></p>
+
+	발췌 설명 효과 발생- abbr title=""
+	<p> the <abbr title="world health org">WHO</abbr></p>
+
+	다른 소스 내용을 인용 : blockquote
+	<blockquote>for 50 yr</blockquote>
+
+	<blockquote class="blockquote">
+		<p>this is blockquote test</p>
+	</blockquote>
+	<br/>
+
+	텍스트 단락 모양 : dl-dt-dd
+	<dl>
+		<dt>coffee</dt>
+		<dd>cafuchino</dd>
+	</dl><br/>
+
+	code inline 이용 : code
+	for example, <code>&lt; section &gt; </code><br/>
+
+	블록 코드 처리 :  pre
+	<pre>
+		&lt;p&gt;Sample text here...&lt;/p&gt;
+	</pre><br/>
+
+	버튼 기능 표시  :kbd
+	<p>Use <kbd>ctrl+p</kbd> </p><br/>
+
+	font 굵기 :   font-weight-bold, font-weight-normal, font-weight-light>
+	font 기울기 : font-italic
+	<p class="font-weight-bold">Bold test</p>
+	<p class="font-italic">Italic text</p><br/>
+
+	문단 단락을 눈에 띄게 표시 : lead
+	<p class="lead"> this is test </p><br/>
+
+	작은 텍스트로 표시 : small
+	<p class="small">this small</p><br/><br/>
+
+	5. Text colors : .text-muted, .text-primary, .text-success, .text-info, .text-warning, .text-danger, .text-secondary, .text-white, .text-dark,
+	.text-body (default body color/often black) and .text-light:<br/>
+
+	Background Colors: .bg-primary, .bg-success, .bg-info, .bg-warning, .bg-danger,
+		.bg-secondary, .bg-dark and .bg-light.<br/><br/>
+
+	6: Image 표시
+	이미지 크기가 반응형(화면크기에 따라 확대 축소) : img-fulid == css :  style="max-width:100%; height:auto;"<br/>
+	이미지가 오른쪽 부터 가로 정열 : float-right<br/>
+	이미지가 왼쪽부터 가로 정열 : float-left<br/>
+	이미지 중앙 정열 : .mx-*-auto  mx-auto d-block  또는  <br/>
+
+	<img class="img-fulid rounded-circle float-left" alt="" src="{% static 'images/green/green_1.jpg'%}" style="max-width:100%; height:auto;">
+	<img class="img-fulid rounded float-left" alt="" src="{% static 'images/green/green_2.jpg'%}" style="max-width:100%; height:auto;">
+	<img class="img-fulid img-thumbnail float-left" alt="" src="{% static 'images/green/green_3.jpg'%}" style="max-width:100%; height:auto;">
+	<img class="img-fulid rounded mx-auto d-block" alt="..." src="{% static 'images/green/green_4.jpg'%}" style="max-width:100%; height:auto;" ><br/>
+
+	블럭 되지 않은 곳에서는 div에 .text-center .text-sm-center.float-left, .float-right, .float-*-left, and .float-*-right<br/>
+	<div class="text-center">
+		<img class="img-fulid rounded" alt="..." src="{% static 'images/green/green_9.jpg'%}" style="max-width:100%; height:auto; ">
+	</div><br/><br/>
+
+    <p>image 수평적 정열  float-left, right, mx-auto d-block </p>
+	<img src="{% static 'images/green/green_1.jpg'%}" class="float-left">
+    <img src="{% static 'images/green/green_2.jpg'%}" class="float-right">
+    <img src="{% static 'images/green/green_3.jpg'%}" class="mx-auto d-block"><br/>
+
+
+	figure(image+text) 표시:
+	<figure class="figure">
+  		<img src="{% static 'images/green/green_1.jpg'%}" class="figure-img img-fluid rounded-circle" alt="A generic square placeholder image with rounded corners in a figure.">
+  		<figcaption class="figure-caption text-right">그림 설명e.</figcaption>
+	</figure>
+	<figure class="figure">
+  		<img src="{% static 'images/green/green_3.jpg'%}" class="figure-img img-fluid rounded-circle" alt="A generic square placeholder image with rounded corners in a figure.">
+  		<figcaption class="figure-caption text-right">그림 설명e.</figcaption>
+	</figure><br/>
+
+
+	Card : 머리글, 바닥글, 내용, 색상등에 패당과 테두리선이 잇는 박스 상자
+	<div class="row">
+		<div class="card col-4" style="width: 18rem;">
+		  <img class="card-img-top" src="{% static 'images/green/green_9.jpg'%}" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">Card title</h5>
+		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		  </div>
+		</div>
+
+		<div class="card col-4" style="width: 18rem;">
+		  <img class="card-img-top" src="{% static 'images/green/green_7.jpg'%}" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">Card title</h5>
+		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		  </div>
+		</div>
+
+		<div class="card col-4" style="width: 18rem;">
+		  <img class="card-img-top" src="{% static 'images/green/green_9.jpg'%}" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">Card title</h5>
+		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		  </div>
+		</div>
+	</div><br/>
+
+   	큰 박스영역이 필요하다면 jumbotron" 회색바탕의 박스 표시:
+	<div class="jumbotron">
+		<h1>누구냐?</h1>
+		<p> 물은 물이요 산은 산이다</p>
+	</div>
+
+	둥근 모서리 없애고 곽채우고 유동적으로 반응하기 위해서:
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1>누구냐?</h1>
+			<p> 물은 물이요 산은 산이다</p>
+		</div>
+	</div><br/><br/>
+
+
+	7: Nav 또는 Navbar : 수평적인 menu 생성시 활용 <br/><br/>
+	ul(nav)-li(nav-item)-a(nav-link)<br/>
+	.nav nav-fills : nav-item을 채워넣음<br/>
+	.nav nav-justify : equal width로 채움  <br/><br/>
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+    </ul><br/>
+
+    Navbar와의 차이 : 페이지 상단에 nav header부분 특화한 것<br/>
+
+		수평적 navbar => navbar-expand-**<br/>
+		수직적 navbar => navbar-expand-** 없애면 됨<br/>
+		수평 중앙 정열 => justify-content-center<br/><br/>
+		responsive collapsing class: .navbar-expand-xl|lg|md|sm <br/>
+		(stacks the navbar vertically on extra large, large, medium or small screens)<br/><br/>
+
+	Header 일반적인 폼 : boostrap4-header-collapse-좌우 정열
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		  	<!-- Brand -->
+		<a class="navbar-brand" href="#">Navbar</a>
+
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+			</ul>
+		</div>
+	</nav><br/>
+
+	<!-- example 2 navbar(dual collapse)- using auto margins 중알 제목 + 좌우 정열, 순서: 제목+좌+우-->
+
+	가운데 정열 : mx-auto,<br/>
+	오른쪽 정열: ml-auto (margin left),<br/>
+	왼쪽 정열 : default or mr-auto(margin right)<br/>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+	    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+	        <ul class="navbar-nav mr-auto">
+	            <li class="nav-item active">
+	                <a class="nav-link" href="#">Left</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="//codeply.com">Codeply</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Link</a>
+	            </li>
+
+	        </ul>
+	    </div>
+
+	    <div class="mx-auto order-0">
+	        <a class="navbar-brand mx-auto" href="#">Navbar middle</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	    </div>
+
+	    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+	        <ul class="navbar-nav ml-auto">
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Right</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Link</a>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+	<br/>
+
+	navbar(collapse) Ex  :  center example
+	<nav class="navbar navbar-expand-sm navbar-light bg-light" data-toggle="affix">
+	    <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
+	        <a class="navbar-brand" href="#">Brand</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <div class="collapse navbar-collapse text-center" id="navbarsExample11">
+	            <ul class="navbar-nav">
+	                <li class="nav-item active">
+	                    <a class="nav-link" href="#">Link</a>
+	                </li>
+	                <li class="nav-item">
+	                    <a class="nav-link" href="#">Link</a>
+	                </li>
+
+	            </ul>
+	        </div>
+	    </div>
+	</nav>
+	<br/>
+
+	Search nav bar:
+	<nav class="navbar navbar-toggleable-xl navbar-light bg-faded">
+		<a href="/" class="navbar-brand">Brand</a>
+		<form class="mx-2 my-auto d-inline w-100">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="...">
+					<span class="input-group-btn">
+					<button class="btn btn-outline-secondary" type="button">GO</button>
+				  </span>
+				</div>
+		</form>
+	</nav>
+
+	search navbar ex2 :
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <form class="form-inline" action="/action_page.php">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+    </nav>
+
+	badge :
+	<div class="text-center">
+	    <span class="badge badge-dark badge-pill">
+	    this is viewport center
+	    </span>
+	</div>
+	<br/>
+
+	아코디언  : collapse 기능 활용 : body 상단에 위치하는  nav/tab/nav-tab
+
+	<ul class="nav justify-content-end">  <!-- justify-content-center -->
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Active</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link disabled" href="#">Disabled</a>
+	  </li>
+	</ul>
+	<br/><br/>
+
+	수직적인 메뉴 생성 :  ul(nav-flex-column)-li(nav-item)-a(nav-link)<br/>
+	<ul class="nav flex-column">
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Active</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link disabled" href="#">Disabled</a>
+	  </li>
+	</ul>
+	<br/>
+
+	Tab형태로 메뉴 생성 : .nav nav-tabs <br/>
+	<ul class="nav nav-tabs">  <!-- 채워 넣을때    : nav-pills -->
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Active</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Link</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link disabled" href="#">Disabled</a>
+	  </li>
+	</ul>
+	<br/>
+
+	Nav-tab로  본문 내용물 연결 : JS에서  $('#myTab').tab('show')시행 해주어야 <br/>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+	  	<li class="nav-item">
+	    	<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+	  	</li>
+	  	<li class="nav-item">
+	    	<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+	  	</li>
+	  	<li class="nav-item">
+	    	<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+	  	</li>
+	</ul>
+	<br/>
+
+
+
+	8 : List group : list 묵음 <br/>
+	ul(list-group), li(list-group-item) 처리<br/>
+	div(list-group), a(list-group-item)<br/>
+	div(list-group), button(list-group-item)<br/>
+    수직적 그룹  => list-group // list-group-item  => border 포함<br/>
+	수평적인 => list-inline // list-inline-item  </p><br/>
+	<ul class="list-group">
+		<li class="list-group-item active">Active item</li>
+		<li class="list-group-item">Second item</li>
+		<li class="list-group-item">Third item</li>
+	</ul><br/><br/>
+
+	<ul class="list-inline">
+		<li class="list-inline-item active">Coffee</li>
+		<li class="list-inline-item">Tea</li>
+		<li class="list-inline-item">Milk</li>
+	</ul>
+
+	<p> ul => div,  li => a </p>
+	<div class="list-group">
+		<a href="#" class="list-group-item list-group-item-action">First item</a>
+		<a href="#" class="list-group-item list-group-item-action">Second item</a>
+		<a href="#" class="list-group-item list-group-item-action">Third item</a>
+	</div><br/><br/>
+
+    통상 링크 연결 : div-a : list-group-item-action)
+	<div class="list-group">
+	  <a href="#" class="list-group-item list-group-item-action active">Cras justo odio(<a>)</a>
+	  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+	  <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+	  <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+	  <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+	</div>
+	<br/>
+
+	링크 불필요시 : ul-li 사용
+	<ul class="list-group">
+	  <li class="list-group-item disabled">Cras justo odio</li>
+	  <li class="list-group-item">Dapibus ac facilisis in</li>
+	  <li class="list-group-item">Morbi leo risus</li>
+	  <li class="list-group-item">Porta ac consectetur ac</li>
+	  <li class="list-group-item">Vestibulum at eros</li>
+	</ul>
+	<br/>
+
+	버튼 형식 : div(list-group)-button(list-group-item)
+	<div class="list-group">
+		  <button type="button" class="list-group-item list-group-item-action active">Cras justo odio(버튼)</button>
+		  <button type="button" class="list-group-item list-group-item-action">Dapibus ac facilisis</button>
+		  <button type="button" class="list-group-item list-group-item-action">Morbi leo risus</button>
+		  <button type="button" class="list-group-item list-group-item-action">Porta ac consectetur ac</button>
+		  <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum at eros</button>
+	</div>
+	<br/>
+
+	9: Form, Form-group (label + input/select) <br/>
+  	form : display:block, width:100% , default : stack verticlally<br/>
+	form-group : form 하부에서 다양한 input,label,radio,checkbox을 통합하여 form-control를 통해 적절한 마진 제공 <br/><br/>
+
+	form-control의 그룹(블럭레벨의 요소 : <div>, <fieldset>)<br/>
+		label의 margin-bottom을 제공<br/>
+		control pairing(짝) 제공<br/><br/>
+		textual inputs : text, password, datetime-local, date, month, time, week, number, email, url, search, tel, color<br/>
+		select menus : multiple, size<br/>
+		textarea 에서 사용<br/>
+	form-control-file :  file<br/>
+
+	수직적 폼 형태 : form - div(.form-group) - input(.form-control)<br/>
+	<form action="/action_page.php">
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd">
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+	</form><br/><br/>
+
+	수평적 폼 형태 : <br/>
+	1. form-inline : form(form-inline) - input(form-control)에서 지정<br/>
+	2. form-group-row : form - div( .form-group-row) - input(form-control)<br/>
+	3. form-row : form - div(. form-row) - input(form-control)   여러개의 form-group<br/>
+	4. row : form - div(. row)input(form-control)
+
+	form(.form-inline) - input(.form-control) 아래 참고<br/>
+	폭 576px 이상에서만 제공, 그 이하에서는 stacked 형태로 전환 <br/>
+		margin (.mr-sm-2) to each input on all devices (small and up). <br/>
+		margin (.mb-2) is the input field when it breaks (goes from horizontal to vertical due to not enough space/width):<br/>
+	form-inline :
+	<form class="form-inline" action="/action_page.php">
+		<label for="email" class="mr-sm-2">Email address:</label>
+		<input type="email" class="form-control mb-2 mr-sm-2" id="email">
+		<label for="pwd" class="mr-sm-2">Password:</label>
+		<input type="password" class="form-control mb-2 mr-sm-2" id="pwd">
+
+		<div class="form-check mb-2 mr-sm-2">
+			<label class="form-check-label">
+				<input class="form-check-input" type="checkbox"> Remember me
+			</label>
+		</div>
+		<button type="submit" class="btn btn-primary mb-2">Submit</button>
+	</form>
+
+	form-inline ex2 :
+	<form class="form-inline">
+	  	<label class="sr-only" for="inlineFormInput">Name</label>
+	  	<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Jane Doe">
+	</form>
+
+	** input-group과 form-group 차이<br/>
+	공통점 : form 내부에서 form-control 사용<br/>
+	차이점 : 한줄에 input기능의 포함 여부 통합<br/>
+	input-group경우 form-inline 유사<br/><br/>
+
+	Search form (form-inline, input-group):<br/>
+	<form class="form-inline ">
+		<div class="input-group">
+			<input class="form-control form-control-sm" type="text" placeholder="Search">
+            <button class="btn btn-outline-success btn-sm" type="submit">Go</button>
+		</div>
+	</form>
+
+	form-group row 차이 : 한줄에  form-control그룹(btn/INPUT)을 표현<br/>
+	<form>
+		<div class="form-group row">
+			<label for="inputEmail3" class="col-sm-2 col-form-label">제목</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control rounded" placeholder="name@example.com">
+			</div>
+		</div>
+	</form>
+	form-group row ex2:
+	<form>
+	    <div class="form-group row">
+	      	<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+	      	<div class="col-sm-10">
+	        	<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+	      	</div>
+	    </div>
+	</form>
+
+	form-group ex3:
+	<form>
+	  <div class="form-group row">
+	    <label class="col-sm-2 col-form-label">Email</label>
+	    <div class="col-sm-10">
+	      <p class="form-control-static">email@example.com</p>
+	    </div>
+	  </div>
+	</form>
+
+	form-row ex1 : 여러 form-group을 한줄에 다 표현 하고 싶을때< text + buttons + button group<br/><br/>
+	<form>
+		form-row:
+		<div class="form-row">   <!-- // 하나의 횡으로 form-group -->
+			<div class="form-group col-md-6">
+			  <label for="inputEmail4">Email</label>
+			  <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+			</div>
+			<div class="form-group col-md-6">
+			  <label for="inputPassword4">Password</label>
+			  <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+			</div>
+	  	</div>
+		form-group-row:
+	  	<div class="form-group row">
+	    	<label for="inputNickname3" class="col-sm-2 col-form-label">별명</label>
+	    	<div class="col-sm-10">
+	      		<input type="nickname" class="form-control" id="inputNickname3" placeholder="별명">
+	    	</div>
+	  	</div>
+		form-group :
+	  	<div class="form-group">
+	    	<label for="inputAddress">Address</label>
+	    	<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+	  	</div>
+
+	  	<div class="form-group">
+	    	<label for="inputAddress2">Address 2</label>
+	    	<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+	  	</div>
+	  	<div class="form-group">
+	    	<div class="form-check">
+	      		<input class="form-check-input" type="checkbox" id="gridCheck">
+	      		<label class="form-check-label" for="gridCheck">
+	        		Check me out
+	      		</label>
+	    	</div>
+	  	</div>
+	  	<button type="submit" class="btn btn-primary">Sign in</button>
+	</form>
+
+	form-row ex2 :
+	<form>
+		<div class="form-row">
+	    	<div class="col-7">     <!-- col-auto -->
+	      		<input type="text" class="form-control" placeholder="City">
+	    	</div>
+	    	<div class="col">		<!-- col-auto -->
+	      		<input type="text" class="form-control" placeholder="State">
+	    	</div>
+			<div class="col">		<!-- col-auto -->
+	      		<input type="text" class="form-control" placeholder="Zip">
+	    	</div>
+	  	</div>
+	</form>
+
+	row : grid column의 input 감싸거나  or 부모에  width 선정 : col-*
+	<div class="row">
+	  <div class="col-2">
+	    <input type="text" class="form-control" placeholder=".col-2">
+	  </div>
+	  <div class="col-3">
+	    <input type="text" class="form-control" placeholder=".col-3">
+	  </div>
+	  <div class="col-4">
+	    <input type="text" class="form-control" placeholder=".col-4">
+	  </div>
+	</div>
+
+	한줄에 여러개의 input 기능 통합 => div(row)//input, input :
+    <div class="row">
+        <input class="col-3 btn btn-primary ml-auto" type="button" value="이전화면"  onclick="history.back(); return false;">
+        <input class="col-3 btn btn-primary mx-auto" type="submit" value="게시글 등록">
+        <input class="col-3 btn btn-primary mr-auto" type="reset" value="Reset">
+    </div><br/><br/>
+
+	다양한 form-group:
+	<form>
+		<div class="form-group">
+			<label for="exampleFormControlInput1">Email address</label>
+			<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+		</div><br/>
+
+		select(single) form-group :
+		<div class="form-group">
+			<label for="exampleFormControlSelect1">Example select</label>
+			<select class="form-control" id="exampleFormControlSelect1">
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			</select>
+		</div>
+
+		select(multi) form-group:
+		<div class="form-group">
+			<label for="exampleFormControlSelect2">Example multiple select</label>
+			<select multiple class="form-control" id="exampleFormControlSelect2">
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			</select>
+		</div>
+
+		textarea form-group:
+		<div class="form-group">
+			<label for="exampleFormControlTextarea1">Example textarea</label>
+			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		</div>
+
+		file input form-group:
+		<div class="form-group">
+			<label for="exampleFormControlFile1">Example file input</label>
+			<input type="file" class="form-control-file" id="exampleFormControlFile1">
+		</div>
+
+		checkbox form-group:
+		<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+						Default checkbox
+			  </label>
+		</div>
+		<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+			  <label class="form-check-label" for="defaultCheck2">
+						Disabled checkbox
+			  </label>
+		</div>
+
+		radio form-group:
+		<div class="form-check">
+			  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+				Default radio
+			  </label>
+		</div>
+		<div class="form-check">
+			  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+			  <label class="form-check-label" for="exampleRadios2">
+				Second default radio
+			  </label>
+		</div>
+		<div class="form-check disabled">
+			  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+			  <label class="form-check-label" for="exampleRadios3">
+				Disabled radio
+			  </label>
+		</div>
+		submit button(simple):
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form><br/>
+
+	checkbox, radio에서는 form-control 이 아닌   .form-check :
+	<div class="form-check disabled">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" value="" disabled>
+	    Option two is disabled
+	  </label>
+	</div>
+
+	control sizing  : form-control-lg or .col-lg-* :
+	<input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+	<input class="form-control" type="text" placeholder="Default input">
+	<input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+
+
+    10. input-group : 한줄에 input 기능과 함께 통합 앞/뒤에 button, text, icon 결합 /<br/>
+		form - div(.input-group) - input(.form-control)<br/>
+		// input-group-prepend/append,input-group-text <br/>
+	** input-group\\ form-group 차이<br/>
+            공통점 : form-control 사용<br/>
+            차이점 : 한줄에 input기능의 포함 여부 통합<br/>
+                   input-group경우 form-inline 유사<br/>
+
+    <form>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Username">
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Your Email">
+            <div class="input-group-append">
+                <span class="input-group-text">@example.com</span>
+            </div>
+        </div>
+
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Something clever..">
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="button">OK</button>
+				<button class="btn btn-danger" type="button">Cancel</button>
+        	</div>
+    	</div>
+    </form><br/><br/>
+
+    input -group :
+	<div class="input-group">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="">First and last name</span>
+	  </div>
+	  <input type="text" class="form-control">
+	  <input type="text" class="form-control">
+	</div>
+
+	<div class="input-group mb-3">
+	  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+	  <div class="input-group-append">
+	    <span class="input-group-text" id="basic-addon2">@example.com</span>
+	  </div>
+	</div><br/>
+
+	multiple inputs :
+	<div class="input-group">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text" id="">First and last name</span>
+	  </div>
+	  <input type="text" class="form-control">
+	  <input type="text" class="form-control">
+	</div><br/>
+
+	<!-- button addons -->
+	<div class="input-group mb-3">
+	  	<div class="input-group-prepend">
+	    	<button class="btn btn-outline-secondary" type="button">Button</button>
+	  	</div>
+	  	<input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+	</div>
+
+
+
+	11. btn-group : 여러개의 button을 묶어 한줄에 표현(radio, checkbox 포함) <br/>
+	div(.btn-group) - button( .btn) <br/>
+	<input-group> <btn-group> 혼합해서 사용 할수   <br/>
+	<input>은 html5에서는 type이 포함되어야 함 <br/>
+
+    한줄에 연속적인 button  => div(.btn-group) - button( .btn) <br/>
+	수직적 여러줄로 button  => div(.btn-group-vertical) - button(.btn) <br/>
+
+    <div class="btn-group btn-group-lg">
+        <button type="button" class="btn btn-primary">Apple</button>
+        <button type="button" class="btn btn-primary">Samsung</button>
+        <button type="button" class="btn btn-primary">Sony</button>
+    </div><br/><br/>
+
+
+	<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+	  	<div class="btn-group mr-2" role="group" aria-label="First group">
+			<button type="button" class="btn btn-secondary">1</button>
+			<button type="button" class="btn btn-secondary">2</button>
+			<button type="button" class="btn btn-secondary">3</button>
+			<button type="button" class="btn btn-secondary">4</button>
+	  	</div>
+	  <div class="input-group">
+	    	<span class="input-group-addon" id="btnGroupAddon">@</span>
+	    	<input type="text" class="form-control" placeholder="Input group example" aria-describedby="btnGroupAddon">
+	  </div>
+	</div>
+
+	btn-group : 수평적으로  한줄에 묶어 표현 기준 button group<br/>
+	list-group : 한줄씩 정리(vertical list 기준)  <br/>
+
+	<div class="btn-group">  <!-- 세로 형태 : btn-group-vertical -->
+		<button class="btn btn-primary">apple</button>
+		<button class="btn btn-primary">straberry</button>
+		<button class="btn btn-primary">orange</button>
+	</div>
+
+	<div class="btn-group" role="group" aria-label="Basic example">
+	  <button type="button" class="btn btn-secondary">Left</button>
+	  <button type="button" class="btn btn-secondary">Middle</button>
+	  <button type="button" class="btn btn-secondary">Right</button>
+	</div>
+	<br/>
+
+	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<label class="btn btn-secondary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+		</label>
+		<label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+		</label>
+		<label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+		</label>
+	</div><br/>
+
+	toggle 실행 :<br/>
+	$().button('toggle')	Toggles push state. Gives the button the appearance that it has been activated.<br/>
+	$().button('dispose')	Destroys an element’s button. <br/>
+
+
+	button color : <br/>
+	<button type="button" class="btn btn-primary">Primary</button>
+	<button type="button" class="btn btn-secondary">Secondary</button>
+	<button type="button" class="btn btn-success">Success</button>
+	<button type="button" class="btn btn-danger">Danger</button>
+	<button type="button" class="btn btn-warning">Warning</button>
+	<button type="button" class="btn btn-info">Info</button>
+	<button type="button" class="btn btn-light">Light</button>
+	<button type="button" class="btn btn-dark">Dark</button>
+	<button type="button" class="btn btn-link">Link</button><br/>
+
+
+	a, input  태그의  button 처리 :  <br/>
+	<a class="btn btn-primary" href="#" role="button">Link</a> <br/>
+	<button class="btn btn-primary" type="submit">Button</button><br/>
+	<input class="btn btn-primary" type="button" value="Input"><br/>
+	<input class="btn btn-primary" type="submit" value="Submit"><br/>
+	<input class="btn btn-primary" type="reset" value="Reset"><br/>
+	<br/>
+
+	button sizing : <br/>
+	<button type="button" class="btn btn-primary btn-lg">Large button</button>
+	<button type="button" class="btn btn-secondary btn-lg">Large button</button>
+	<button type="button" class="btn btn-primary btn-sm">Small button</button>
+	<button type="button" class="btn btn-secondary btn-sm">Small button</button>
+	<br/>
+
+	btn- block (한줄 전체) : <br/>
+	<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+	<button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+	<br/>
+
+	button active/disabled : <br/>
+	<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link</a>
+	<a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Link</a>
+	<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button>
+	<button type="button" class="btn btn-secondary btn-lg" disabled>Button</button>
+	<br/>
+
+	checkbox / radio button : <br/>
+	<div class="btn-group-toggle" data-toggle="buttons">
+	  	<label class="btn btn-secondary active">
+	    	<input type="checkbox" checked autocomplete="off"> Checked
+	  	</label>
+	</div><br/>
+
+    button 내의 숫자 표시 : badge <br/>
+	<button type="button" class="btn btn-primary">
+  		추천 <span class="badge badge-light">4</span>
+	</button>
+	<br/>
+
+
+
+
+
+
+	12:정열  <br/>
+	수평 정열<br/>
+	a, ul, div 태그 수평 정열 : : grid + text 정열 <br/>
+
+	grid로 정열  : offset를 통해 좌우 마진을 주어 처리
+	mx-auto : 가운데 정열<br/>
+	ml-auto : 오른쪽 정열<br/>
+	mr-auto : 왼쪽 정열<br/>
+	text-center : text center <br/>
+	span, nav, ul 에서는 float-left, float-left 사용가능<br/>
+
+	div태그에서는  float, text, mx-auto 영향을 미침<br/>
+	a, button 태그에서는  xl, xr, mx 처리, float 미적용  div로 감싸 처리할수<br/>
+    .mx-auto class (adds margin-left and margin-right: auto):<br/><br/>
+
+	 d-flex(boostrap4)<br/>
+    flex를 활용한 정열 : layout 통제를 flexbox를 활용(instead of floats)//bootstrap 3,4 차이 <br/>
+    flexbox ::: float이나 positioning 없이 layout을 쉽게 통제하기 위함<br/>
+    flexbox 생성 및 flex items을 통제   =>  div(.d-flex)  <br/>
+    수평적 layout(default) : flex-row(default):d-flex flex-row // d-flex flex-row-reverse<br/>
+                          : d-inline-flex class:<br/>
+	수직적 layout 위해 : .flex-column // .flex-column-reverse</p><br/><br/>
+
+
+	d-flex   flex-fill : flex-item 공간 채움(동등 폭으로)<br/>
+	<div class="d-flex mb-3 p-3 bg-secondary">
+		<div class="p-2 flex-fill bg-info">Flex item 1</div>
+		<div class="p-2 flex-fill bg-warning">Flex item 2</div>
+		<div class="p-2 flex-fill bg-primary">Flex item 3</div>
+	</div><br/><br/>
+
+	d-flex  . flex-grow-1 : flex item의 공간의 나머지를 채움<br/>
+	<div class="d-flex mb-3 p-3 bg-secondary">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 flex-grow-1 bg-primary">Flex gorw item 3</div>
+	</div> <br/><br/>
+
+	d-flex style="flex-grow:1"  <br/>
+	<div class="d-flex mb-3 p-3 bg-secondary">
+		<div class="p-2 bg-info" style="flex-grow: 1">flex-1</div>
+		<div class="p-2 bg-warning" style="flex-grow: 1">flex-2</div>
+		<div class="p-2 bg-primary" style="flex-grow: 10">flex-grow-3</div>
+	</div><br/><br/>
+
+	d-flex,  no fill 경우"  <br/>
+    <div class="d-flex mb-3 p-3 bg-secondary">
+		<div class="p-2 bg-info">without .flex-fill Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/><br/>
+
+    수평적인 content 정열 => 	d-flex justify-content-start/end/center/between.around)<br/>
+	<div class="d-flex justify-content-start bg-secondary mb-3 p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/>
+	수평적인 content 정열 => 	d-flex justify-content-start/end/center/between.around)<br/>
+    <div class="d-flex justify-content-end bg-secondary mb-3 p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/>
+	수평적인 content 정열 => 	d-flex justify-content-start/end/center/between.around)<br/>
+    <div class="d-flex justify-content-center bg-secondary mb-3 p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/>
+	수평적인 content 정열 => 	d-flex justify-content-start/end/center/between.around)<br/>
+	<div class="d-flex justify-content-between bg-secondary mb-3 p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div>
+	수평적인 content 정열 => 	d-flex justify-content-start/end/center/between.around)<br/>
+    <div class="d-flex justify-content-around bg-secondary mb-3 p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/><br/>
+
+	마진을 통한 개별 flex item 정열 : mr-auto(오른쪽 채움), ml-auto(왼쪽 채움)<br/>
+            flex items with .mr-auto (push items to the right), or<br/>
+            by using .ml-auto (push items to the left):<br/>
+    <div class="d-flex bg-secondary p-3">
+		<div class="p-2 mr-auto bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div>
+    <div class="d-flex bg-secondary p-3">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 ml-auto bg-primary">Flex item 3</div>
+	</div><br/><br/>
+
+    CSS Flex를 이용한 채움 flex-grow(채워넣음), flex-shrink(0:타 item과 비례적으로 줄어들지 않음), flex-basis(최초 공간 확보) <br/>
+
+    .flex-*-grow-0		Don't make the items grow on different screens<br/>
+	.flex-*-grow-1		Make items grow on different screens<br/>
+	.flex-*-shrink-0	Don't make the items shrink on diferent screens<br/>
+	.flex-*-shrink-1	Make items shrink on different screens<br/>
+	.order-*-0-12		Change the order from 0 to 12 on small screens <br/><br/>
+
+	d-flex와 d-inline-flex 차이(위-아래) d-flex를 한줄의 범위,<br/>
+	d-flex : 한줄 전체:
+    <div class="d-flex p-3 bg-secondary text-white">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/>
+
+	d-inline-flex  한줄 채우지 않음: <br/>
+    <div class="d-inline-flex p-3 bg-secondary text-white">
+		<div class="p-2 bg-info">Flex item 1</div>
+		<div class="p-2 bg-warning">Flex item 2</div>
+		<div class="p-2 bg-primary">Flex item 3</div>
+	</div><br/><br/>
+
+    image 수평적 정열 : float-left, right, mx-auto d-block <br/>
+	<img src="{% static 'images/green/green_1.jpg' %}" class="float-left">
+	<img src="{% static 'images/green/green_1.jpg' %}" class="float-right">
+    <img src="{% static 'images/green/green_1.jpg' %}" class="mx-auto d-block">
+
+	<p>bootstrap-3</p>
+    mx-auto:<br/>
+	<div class="col-9 offset-3 row">
+		<a class="mr-auto btn btn-primary" href="" role="button">btn-left</a>
+		<a class="mx-auto btn btn-primary" href="" role="button">btn-center</a>
+		<a class="ml-auto btn btn-primary" href="" role="button">btn-right</a>
+	</div>
+
+	float : <br/>
+	<div class="col-9 offset-3 clearfix">  <!--  //float를 위해 보모클래스에서 .clearfix 설정해주어야 -->
+		<div class="float-left">float-left</div>
+		<div class="float-right">float-right</div>
+	</div>
+
+	<div class="clearfix">
+	  <span class="float-left">Float left</span>
+	  <span class="float-right">Float right</span>
+	</div><br/><br/>
+
+
+
+    수직 정열 : Tag  Vertical align <br/>
+    flex 수직적인 정열(bootstrap4)    => 	d-flex align-content-start/end/center/between.around-<br/>
+
+	   수직적인 content \\ 전체 flex에서의  정열 : align-content-start/end/center/round/stretch <br/>
+
+	    <div class="d-flex border flex-wrap align-content-start p-3">Flex item</div>
+		<div class="d-flex border flex-wrap align-content-end">Flex item</div>
+		<div class="d-flex border flex-wrap align-content-center">Flex item</div>
+		<div class="d-flex border flex-wrap align-content-around">Flex item</div><br/><br/>
+
+		수직적인 flex-items \\  single row에서의 정열 : d-flex align-items-start/end/center/baseline/stretch<br/>
+		<div class="d-flex border align-items-start">Flex item</div>
+		<div class="d-flex border align-items-end">Flex item</div>
+		<div class="d-flex border align-items-center">Flex item</div>
+		<div class="d-flex border align-itms-baseline">Flex item</div>
+		<div class="d-flex border align-items-stretch">Flex item</div><br/><br/>
+
+        특정 flex-item에서의  정열 : d-flex align-self-start/end/center/baseline/stretch<br/>
+        <div class="d-flex bg-light" p-3 style="height:150px">
+            <div class="p-2 bg-secondary">Flex item 1</div>
+			<div class="p-2 border align-self-start">Flex item 2</div>
+			<div class="p-2 border">Flex item 3</div>
+        </div><br/><br/>
+
+        inline에서 개별 span에서의 수직 정열  align- classes to change the alignment of elements
+            (only works on inline, inline-block, inline-table and table cell elements):<br/>
+        <span class="align-baseline">baseline</span>
+        <span class="align-top">top</span>
+        <span class="align-middle">middle</span>
+        <span class="align-bottom">bottom</span>
+        <span class="align-text-top">text-top</span>
+        <span class="align-text-bottom">text-bottom</span>
+
+		align-(only works on inline, inline-block, inline-table and table cell elements):<br/>
+        Vertical center using flexbox : (align-self-center)
+                                 using flexbox : (align-items-center)<br/>
+                                 my-auto : 수직 중앙(자동정열)  mx-auto : 수평 중앙(자동정열)<br/>
+
+		<span class="align-baseline">baseline</span>
+		<span class="align-top">top</span>
+		<span class="align-middle">middle</span>
+		<span class="align-self-center">self-center</span>
+		<span class="align-items-center">items-center</span>
+		<span class="my-auto">my-auto</span>
+		<span class="align-bottom">bottom</span>
+		<span class="align-text-top">text-top</span>
+		<span class="align-text-bottom">text-bottom</span>
+
+		<h3>Center single items</h3>
+		<h5 class="text-muted">Vertical center using flexbox (align-self-center)..</h5>
+            <!--parent must be full height-->
+            <div class="row h-30">
+                <div class="col-sm-12 align-self-center">
+                    <div class="card card-block">Card</div>
+                </div>
+            </div>
+
+            <h5 class="text-muted">Vertical center using flexbox (align-self-center), horizontal center using auto-margins..</h5>
+             <!--vertical align on self-->
+            <div class="row h-10">
+                <div class="col-sm-12 align-self-center">
+                    <div class="card card-block w-25 mx-auto">Card</div>
+                </div>
+            </div>
+
+            <h5 class="text-muted">Vertical center using flexbox (align-items-center), horizontal center using auto-margins.</h5>
+            <!--vertical align on parent-->
+            <div class="row h-10 align-items-center">
+                <div class="col-sm-12">
+                    <div class="card card-block w-25 mx-auto">Card</div>
+                </div>
+            </div>
+
+            <h5 class="text-muted">Vertical and horizontal center using auto-margins..</h5>
+            <!--vertical align on parent using my-auto, horizontal align on self mx-auto-->
+            <div class="row">
+                <div class="col-sm-12 my-auto">
+                    <div class="card card-block w-25 mx-auto">Card</div>
+                </div>
+            </div>
+            <hr>
+
+            <h3>Center multiple items</h3>
+            <h5 class="text-muted">Vertical center using flexbox `align-self-center`</h5>
+            <div class="row">
+                <div class="col-sm-6 align-self-center">
+                    <div class="card card-block">Card</div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-inverse card-danger">
+                        <div class="card-block">
+                            <h3 class="card-title">Danger</h3>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-outline-secondary">Outline</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="text-muted">Vertical center using flexbox `align-items-center`..</h5>
+            <div class="row">
+                <div class="col-12 d-flex flex-row align-items-center">
+                    <h1 class="border">Heading</h1>
+                    <div class="p-2 border">
+                        Text line 1<br>
+                        Text line 2
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="text-muted">Vertical center using `d-inline-block` &amp; `align-middle`..</h5>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="d-inline-block align-middle border">Heading</h1>
+                    <div class="d-inline-block align-middle border">
+                        Text line 1<br>
+                        Text line 2
+                    </div>
+                </div>
+            </div>
+
+	텍스트 정열  : text-left, text-right, text-center, text-justify, text-nowrap : <br/>
+	<p class="text-right">aligned in right</p>
+
+	<div class="text-center">
+	    <span class="badge badge-dark badge-pill">
+	    this is viewport center
+	    </span>
+	</div>
+
+	Button Tag 단독  좌우 정열  : mx-auto, text-center
+	<!-- btn-group으로 설정했다면  좌우 정열 : 묶어서 처리 : .btn-group float-right -->
+	<div class="row">
+	    <h3 class="one">Text</h3>
+	    <button class="btn btn-secondary mx-auto">Button</button>
+	</div>
+
+	가운데 btm .mx-auto : <br/>
+	<div class="row" >
+		<button type="button" class="btn btn-secondary">btn-left</button>
+		<button type="button" class="btn btn-secondary mx-auto">btn-center</button>
+		<button type="button" class="btn btn-secondary">btn-right</button>
+	</div>
+
+	btn-group 가운데 .mx-auto: <br/>
+	<div class="row">
+		<div class="btn-group "><button type="button" class="btn btn-primary ">btn-left</button></div>
+		<div class="btn-group mx-auto"><button type="button" class="btn btn-primary ">btn-center</button></div>
+		<div class="btn-group "><button type="button" class="btn btn-primary ">btn-right</button></div>
+	</div>
+
+	row - div(.mx-auto: <br/>
+	<section class="row">
+	  <div class="mx-auto">
+	    <a class="btn btn-outline-primary" href="#">Home</a>
+	    <a class="btn btn-outline-primary" href="#">Traffic</a>
+	    <a class="btn btn-outline-primary" href="#">MAC Monitoring</a>
+	    <a class="btn btn-outline-primary" href="#">Alert Logging</a>
+	    <a class="btn btn-outline-primary" href="#">Diameter Server</a>
+	    <a class="btn btn-outline-primary" href="#">Maintenance Mode</a>
+	  </div>
+	</section>
+
+	Nav 좌우 정열 :  justify-content-center, justify-content-end -->
+	<ul class="nav justify-content-end">
+		<li class="nav-item">
+			<a class="nav-link active" href="#">Active</a>
+	  	</li>
+	  	<li class="nav-item">
+	    	<a class="nav-link" href="#">Link</a>
+	  	</li>
+	  	<li class="nav-item">
+	    	<a class="nav-link" href="#">Link</a>
+	  	</li>
+	  	<li class="nav-item">
+	    	<a class="nav-link disabled" href="#">Disabled</a>
+	  	</li>
+	</ul>
+
+	Block 정렬 - using auto margins 중앙 제목 + 좌우 정열, 순서: 제목+좌+우<br/>
+	가운데 정열 : mx-auto,<br/>
+	오른쪽 정열: ml-auto (margin left),<br/>
+	왼쪽 정열 : default or mr-auto(margin righ<br/>
+
+	mx-auto : <br/>
+	<div class="mx-auto bg-warning" style="width:150px">Centered</div>
+
+	mr-auto, mx-auto, ml-auto를 이용한 navbar :<br/>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+	    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+	        <ul class="navbar-nav mr-auto">
+	            <li class="nav-item active">
+	                <a class="nav-link" href="#">Left</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="//codeply.com">Codeply</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Link</a>
+	            </li>
+
+	        </ul>
+	    </div>
+
+	    <div class="mx-auto order-0">
+	        <a class="navbar-brand mx-auto" href="#">Navbar 2</a>
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	    </div>
+
+	    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+	        <ul class="navbar-nav ml-auto">
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Right</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Link</a>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+
+	Float 정열 : nav, ul,  div, span, img,       //   a, button는  float 미적용<br/>
+	우측정열 : float-right<br/>
+	좌측정열 : float-left<br/>
+	clearfix : grid height 불일치할때 앞 부분을 정리하고 다음부터 새롭게 시작<br/>
+	<div class="clearfix visible-xs-block></div>-->
+
+	<div class="clearfix">
+	  	<span class="float-left">Float left</span>
+	  	<span class="float-right">Float right</span>
+	</div>
+
+	반응형  float <br/>
+	.float-*(sm, md, lg, xl)-left or right : -이상 크기면 우측 정열 <br/>
+
+	<div class="float-sm-right">Float right on small screens or wider</div><br>
+	<div class="float-md-right">Float right on medium screens or wider</div><br>
+	<div class="float-lg-right">Float right on large screens or wider</div><br>
+	<div class="float-xl-right">Float right on extra large screens or wider</div><br>
+	<div class="float-none">Float none</div>
+
+	Image 좌우 정열<br/>
+	이미지 크기가 반응형(화면크기에 따라 확대 축소) : img-fulid<br/>
+	  css :  style="max-width:100%; height:auto;"<br/>
+	이미지가 오른쪽 부터 가로 정열 : float-right<br/>
+	이미지가 왼쪽부터 가로 정열 : float-left<br/>
+	이미지 중앙 정열 : .mx-*-auto  mx-auto d-block  또는  블럭 되지 않은 곳에서는 div에 .text-center .text-sm-center<br/>
+	.float-left, .float-right, .float-*-left, and .float-*-right<br/>
+
+	<img class="img-fulid rounded-circle float-left" alt="" src="{% static 'images/green/green_1.jpg' %}" style="max-width:100%; height:auto;">
+	<img class="img-fulid rounded float-left" alt="" src="{% static 'images/green/green_2.jpg' %}" style="max-width:100%; height:auto;">
+	<img class="img-fulid img-thumbnail float-left" alt="" src="{% static 'images/green/green_3.jpg' %}" style="max-width:100%; height:auto;">
+	<img class="img-fulid rounded mx-auto d-block" alt="..." src="{% static 'images/green/green_4.jpg' %}" style="max-width:100%; height:auto;" >
+	<div class="text-center"><img class="img-fulid rounded" alt="..." src="{% static 'images/green/green_5.jpg' %}" style="max-width:100%; height:auto; "></div>
+
+	특정  grid display or none <br/>
+	d-none : 모든 부분 사라짐(먼저 사라지게 한다음, 원하는 것만 뽑아)<br/>
+	d-sm-none : sm부터 사라짐<br/>
+	d-sm-block : sm부터 나타남 <br/>
+
+	xl에서만 사라짐(sm부터 나타남) <br/>
+	<div class="d-none d-sm-block"> hidden-xs    <!-- // 모두 사라짐 이후, sm블록에서 나타나기 시작됨 (xs에서만 사라짐)  -->
+	  	<!-- sm 이하에서 사라짐 (md부터 나타남)-->
+	  	<div class="d-none d-md-block"> visible-md and up (hidden-sm and down)	<!-- 부모 기준 적용후, sm에서 사라짐, md블록에서 나타나기 시작됨 -->
+	    <!-- md이하에서 사라짐(lg부터 나타남) -->
+	    	<div class="d-none d-lg-block"> visible-lg and up  (hidden-md and down)  <!-- 부모기준 적용후, md에서 사라지고 lg블록부터 나타남 -->
+	      	<!-- lg이하에서 사라짐 (xl부터 나타남)-->
+	      		<div class="d-none d-xl-block"> visible-xl </div>		<!-- 부모기준 적용후, xl부터 나타나기 시작함 -->
+	    	</div>
+	  	</div>
+	</div>
+
+	xs부분만 표시 <br/>
+	<div class="d-sm-none"> eXtra Small : <576px </div>		<!-- sm부터 사라짐(xs에서만 나타남) -->
+	sm부분만 표시 <br/>
+	<div class="d-none d-sm-block d-md-none d-lg-none d-xl-none"> SMall ≥576px </div>	<!-- 모두사라짐, sm에서부터 나타남, md부터 사라짐, lg부터 사라짐, xl부터 사라짐(sm에서만 나타남) -->
+	md부분만 표시 <br/>
+	<div class="d-none d-md-block d-lg-none d-xl-none"> MeDium ≥768px </div>	<!-- 모두사라짐, md부터 나타남, lg,xl부터 사라짐(md만 나타남) -->
+	lg부분만 표시 <br/>
+	<div class="d-none d-lg-block d-xl-none"> LarGe ≥992px </div>    <!-- 모두사라짐, lg부터 나타남, xl부터 사라짐(lg만 나타남) -->
+	 xl부분만 표시 <br/>
+	<div class="d-none d-xl-block"> eXtra Large ≥1200px </div>	모두 사라짐, xl부터 나타남
+
+	xl부분만 사라짐 (xs-sm-md-lg표시)<br/>
+	<div class="d-xl-none"> hidden-xl (visible-lg and down)  <!--  xl부분부터 사라짐 -->
+	  	lg,xl부분 사라짐(xs-sm-md표시) <br/>
+	  	<div class="d-lg-none d-xl-none"> visible-md and down (hidden-lg and up)  <!-- lg부분 부터 사라짐, xl부분부터 사라짐 -->
+	    	md이후 사라짐(xs-sm표시) <br/>
+	    	<div class="d-md-none d-lg-none d-xl-none"> visible-sm and down  (or hidden-md and up)
+	      		sm이후 사라짐(xl에서만 나타남)<br/>
+	      		<div class="d-sm-none"> visible-xs </div>
+	    	</div>
+		</div>
+	</div>
+
+	<div class="d-lg-none">hide on screens wider than lg</div>
+	<div class="d-none d-lg-block">hide on screens smaller than lg</div>
+
+	순서 : order 스크린 크기에 따라 display 순서를 결정<br/>
+	order-md-1 : md에서 첫번째<br/>
+	order-2 : xs에서 2번째<br/>
+	order 미언급 : 0번째<br/>
+	1-12 번째 <br/>
+
+    <div class="row">
+        <div class="col-3 col-md-6">
+            <div class="card card-body">order 1</div>
+        </div>
+        <div class="col-3 col-md-6 order-3">   <!-- //xs에서 grid3 md에서 grid6, xs에서는 3번째 -->
+            <div class="card card-body">order 2</div>
+        </div>
+        <div class="col-6 col-md-12 order-2 order-md-12">   <!-- //xs에서 grid6 md에서 grid12 xs에서 2번째, md에서 마지막 -->
+            <div class="card card-body">order 3</div>
+        </div>
+
+
+    <div class="row">
+        <div class="col-md-6 order-md-2">		<!-- //md에서 2번째 -->
+            <div class="card card-block">1</div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-block">2</div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3 col-md-6 order-md-2">
+            <div class="card card-block">1</div>
+        </div>
+        <div class="col-6 col-md-12 order-md-1">  	<!-- //md에서 첫번째 이지만,  order 미언급  div: 0번째-->
+            <div class="card card-block">3=1번째</div>
+        </div>
+        <div class="col-3 col-md-6">
+            <div class="card card-block">2</div>
+        </div>
+    </div>
+
+
+
+	Table (basic)<br/>
+      	col 불필요, sizing: 아래글 참고 <br/>
+		comumn merge : <td colspan=""><br/>
+		row merge :    <td rowspan=""> <br/>
+
+    Basic Table : <br/>
+	<table class="table table-bordered">
+	  <tr>
+	      <th >Firstname</th>
+	      <th >Lastname</th>
+	      <th >Email</th>
+	  </tr>
+	  <tr>
+	      <td >John</td>
+	      <td >Doe</td>
+	      <td >john@example.com</td>
+	  </tr>
+	  <tr>
+		  <th colspan="3">내용</th>
+	  </tr>
+
+	  <tr>
+		  <td colspan="3">colspan</td>
+	  </tr>
+	</table>
+
+	Table thead, tbody  : <br/>
+	<table class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th >Firstname</th>
+	        <th >Lastname</th>
+	        <th >Email</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td >John</td>
+	        <td >Doe</td>
+	        <td >john@example.com</td>
+	      </tr>
+	      <tr>
+			<th colspan="3">내용</th>
+		  </tr>
+
+		  <tr>
+			<td colspan="3">colspan</td>
+		  </tr>
+	    </tbody>
+	 </table>
+
+	Table d-flex : <br/>
+	<table class="table table-bordered">
+		  <thead>
+		    <tr class="d-flex">
+		      <th class="col-3">3 columns wide header</th>
+		      <th class="col-5">5 columns wide header</th>
+		      <th class="col-4">4 columns wide header</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr class="d-flex">
+		      <td class="col-3">3 columns wide content</th>
+		      <td class="col-5">5 columns wide content</th>
+		      <td class="col-4">4 columns wide content</th>
+		    </tr>
+		  </tbody>
+	</table>
+
+	table scope : <br/>
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">First</th>
+	      <th scope="col">Last</th>
+	      <th scope="col">Handle</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th scope="row">1</th>
+	      <td>Mark</td>
+	      <td>Otto</td>
+	      <td>@mdo</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">2</th>
+	      <td>Jacob</td>
+	      <td>Thornton</td>
+	      <td>@fat</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">3</th>
+	      <td>Larry</td>
+	      <td>the Bird</td>
+	      <td>@twitter</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+
+
+	Table .d-inline-block : <br/>
+	<table class="table table-striped">
+        <thead>
+            <tr class="row m-0">
+                <th class="d-inline-block col-3">3 columns wide</th>
+                <th class="d-inline-block col-5">5 columns wide</th>
+                <th class="d-inline-block col-4">4 columns wide</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row m-0">
+                <td class="d-inline-block col-3">123
+                </td>
+                <td class="d-inline-block col-5">
+                    <p>3 wolf moon retro jean shorts chambray sustainable .</p>
+                </td>
+                <td class="d-inline-block col-4">789
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    Table .m-0  w-25 : <br/>
+    <table class="table table-bordered">
+        <thead>
+            <tr class="m-0">
+                <th class="w-25">25</th>
+                <th class="w-50">50</th>
+                <th class="w-25">25</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="m-0">
+                <td class="w-25">123
+                </td>
+                <td class="w-50">
+                    <p>3 wolf moon retro jean shorts chambray sustainable </p>
+                </td>
+                <td class="w-25">789
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+	Table: table responsive 조정<br/>
+	.table-responsive-xl – Applies to less than 1200px<br/>
+	.table-responsive-lg – for <992px<br/>
+	.table-responsive-md – For less than 768px<br/>
+	.table-responsive-sm – Applies to screens less than 576 pixels<br/>
+
+	<div class="table-responsive-xl">
+	<table class="table table-striped table-hover table-bordered">
+	<caption>Monthy Sales Report</caption>
+	  <thead>
+	    <tr>
+	          <th>Mon</th>
+	          <th>Sales</th>
+	          <th>Amount</th>
+	          <th>Mon</th>
+	          <th>Sales</th>
+	          <th>Amount</th>
+	          <th>Mon</th>
+	          <th>Sales</th>
+	          <th>Amount</th>
+	          <th>Mon</th>
+	          <th>Sales</th>
+	          <th>Amount</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <tr>
+	      <td>Jan</td>
+	      <td>105</td>
+	      <td>$15,000.00</td>
+	      <td>Jan</td>
+	      <td>105</td>
+	      <td>$15,000.00</td>
+	      <td>Jan</td>
+	      <td>105</td>
+	      <td>$15,000.00</td>
+	      <td>Jan</td>
+	      <td>105</td>
+	      <td>$15,000.00</td>
+	     </tr>
+	  </tbody>
+	</table>
+	</div>
+
+	table내   button<br/>
+	<table class="table table-striped table-responsive-md btn-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Button</button></td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Button</button></td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Button</button></td>
+        </tr>
+    </tbody>
+
+	</table>
+
+
+	Dropdown <br/>
+
+	button dropdown  script에서 toggle 시행 필요<br/>
+	세로방향 버튼을위해서는 div class="btn-group-vertical"<br/>
+	선택자 구분을 위해 dropdown-toggle-split 추가<br/>
+	드롭다운 하위메뉴 위치 : dropdown-menu-left/right<br/>
+
+	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+		<button type="button" class="btn btn-secondary">1</button>
+		<button type="button" class="btn btn-secondary">2</button>
+
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-secondary">드롭다운</button>
+		    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+		    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+				<h5 class="dropdown-header">그룹1</h5>
+				<a class="dropdown-item active" href="#">Dropdown link</a>
+				<h5 class="dropdown-header">그룹2</h5>
+				<a class="dropdown-item" href="#">Dropdown link</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item disabled" href="#">Something else here</a>
+	  		</div>
+		</div>
+	</div>
+	<br/><br/>
+
+	single split dropdown <br/>
+	<div class="dropup">  <!-- //dropdown but, 드롭다운 위로 보이게 하기 위해 dropup -->
+
+	  	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    	Dropdown button
+	  	</button>
+	  	<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+		    <h5 class="dropdown-header">그룹1</h5>
+			<a class="dropdown-item active" href="#">Dropdown link</a>
+			<h5 class="dropdown-header">그룹2</h5>
+			<a class="dropdown-item" href="#">Dropdown link</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item disabled" href="#">Something else here</a>
+	  	</div>
+	</div>
+	<br/>
+
+    collpse기능 : <br/>
+    클릭하면 나오고 다시 클릭하면 사라지는 기능,  data-target="#id" 이나  href="#id"기능 활용<br/>
+
+	collapse basic<br/>
+	<p>
+		a 태그 방식<br/>
+		<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    		Link with href
+  		</a>
+  		버튼방식<br/>
+  		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    		Button with data-target
+  		</button>
+	</p>
+
+	<div class="collapse" id="collapseExample">
+	  	<div class="card card-body">
+	    	Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+	  	</div>
+	</div><br/>
+
+	collapse table<br/>
+	tr에 적용 불가 <br/>
+	<table class="table table-responsive table-hover">
+	    <thead>
+	        <tr><th>Employee Name</th><th>Claim Amount</th><th>Approved Amoumt</th><th>Paid Amount</th></tr>
+	    </thead>
+	    <tbody>
+	        <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1">
+	            <td><i class="fa fa-plus" aria-hidden="true"></i></td>
+	            <td>data</td>
+	          	<td>data</td>
+	            <td>data</td>
+	        </tr>
+	    </tbody>
+	    <tbody id="group-of-rows-1" class="collapse">
+	        <tr>
+	            <td>- child row</td>
+	            <td>data 1</td>
+	          	<td>data 1</td>
+	            <td>data 1</td>
+	        </tr>
+	        <tr>
+	            <td>- child row</td>
+	            <td>data 1</td>
+	          	<td>data 1</td>
+	            <td>data 1</td>
+	        </tr>
+	    </tbody>
+	    <tbody>
+	        <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-2" aria-expanded="false" aria-controls="group-of-rows-2">
+	            <td><i class="fa fa-plus" aria-hidden="true"></i></td>
+	            <td>data</td>
+	          	<td>data</td>
+	            <td>data</td>
+	        </tr>
+	    </tbody>
+	    <tbody id="group-of-rows-2" class="collapse">
+	        <tr>
+	            <td>- child row</td>
+	            <td>data 2</td>
+	          	<td>data 2</td>
+	            <td>data 2</td>
+	        </tr>
+	        <tr>
+	            <td>- child row</td>
+	            <td>data 2</td>
+	          	<td>data 2</td>
+	            <td>data 2</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	tab :  <br/>
+	<div class="tab-content" id="myTabContent">
+	  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+	  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+	  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+	</div><br/>
+
+
+	Card : 머리글, 바닥글, 내용, 색상등에 패당과 테두리선이 잇는 박스 상자<br/>
+	<div class="card" style="width: 18rem;">
+	  <img class="card-img-top" src="<%=cp%>/images/green/green_1.jpg" alt="Card image cap">
+	  <div class="card-body">
+	    <h5 class="card-title">Card title</h5>
+	    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	    <a href="#" class="btn btn-primary">Go somewhere</a>
+	  </div>
+	</div><br/>
+
+	Carosel : <br/>
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	  <ol class="carousel-indicators">
+	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	  </ol>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img class="d-block w-100" src="<%=cp%>/images/green/green_1.jpg" alt="First slide">
+	    </div>
+	    <div class="carousel-item">
+	      <img class="d-block w-100" src="<%=cp%>/images/green/green_1.jpg" alt="Second slide">
+	    </div>
+	    <div class="carousel-item">
+	      <img class="d-block w-100" src="<%=cp%>/images/green/green_1.jpg" alt="Third slide">
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
+
+
+</div>
+
+
+{% endblock %}
+

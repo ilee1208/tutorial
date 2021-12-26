@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<div>
+
+    {% block sidebar %}
+    <div class="col-sm-3">
+        {% include 'course/sidebar.html' with objects=courseList %}
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="col-sm-9">
+          {{form.media }}
+          {{item.content|safe }}
+    </div>
+    {% endblock %}
+
+</div>

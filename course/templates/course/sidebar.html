@@ -1,0 +1,37 @@
+<div id="sidebar">
+    <h3>Django</h3>
+    <h5>진행형자습서:</h5>
+
+
+    <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+            <a class="nav-link text-primary"  href="{% url 'main:index' %}"><i class="icon-home icon-white"></i> Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  href="{% url 'course:courseAdd' %}"><i class="icon-book"></i> Course-Add</a>
+        </li>
+
+
+        {% for item in courseList %}
+        <li class="nav-item">
+            <div class="row">
+                <a class="nav-link"  href="{% url 'course:courseEdit' item.id %}"><i class="icon-book"></i>{{item.subject}}</a>
+                <a class="nav-link"  href="{% url 'course:courseReform' item.id %}"><i class="icon-book"></i>#</a>
+            </div>
+        </li>
+        {% endfor %}
+
+
+
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#"># 수정</a>
+        </li>
+    </ul>
+
+    <form class="navbar-search pull-left">
+        <input type="text" class="search-query" placeholder="Search">
+    </form>
+
+    <hr class="d-sm-none">
+
+</div>

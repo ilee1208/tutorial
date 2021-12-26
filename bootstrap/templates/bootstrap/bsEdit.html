@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block sidebar %}
+<div class="col-sm-3">
+    {% include 'bootstrap/sidebar.html' with objects=bsList %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-9">
+    {{form.media }}
+    {{item.content|safe }}
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+
+#body_index{
+	background-image:url("{% static 'images/main/city_night.jpg' %}");
+}
+
+img {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+/* @media screen and (max-width:768px){
+  .card-body{max-height:2em; padding:0;align:center;}
+  .card-title{margin:0;align:center;font-size: 0.3em; }
+} */
+</style>
+
+<div id="body_index" class="p-5">
+
+    <!-- main content -->
+    <div class="row col-md-10 offset-md-1 d-flex justify-content-around">
+
+        <div class="col-4 mb-4">
+            <div class="card" id="more" >
+				<a href="{% url 'mLearn:jsontype' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_1.jpg'%}" alt="Card image" style="width:100%"></a>
+				<div class="card-body p-1 d-flex justify-content-center">
+					<a href="{% url 'mLearn:jsontype' %}"><h5 class="card-title" style="font-size:3vw">JSON</h5></a>
+				</div>
+            </div>
+        </div>
+        <div class="col-4 mb-4">
+            <div class="card" id="more" >
+				<a href="{% url 'mLearn:xmltype' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_1.jpg'%}" alt="Card image" style="width:100%"></a>
+				<div class="card-body p-1 d-flex justify-content-center">
+					<a href="{% url 'mLearn:xmltype' %}"><h5 class="card-title" style="font-size:3vw">XML</h5></a>
+				</div>
+            </div>
+        </div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:csvtype' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_3.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+                    <!--<%=cp%>/game/blackjack/start.do-->
+	      			<a href="{% url 'mLearn:csvtype' %}"><h5 class="card-title" style="font-size:3vw">CSV</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:excel' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_4.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+                    <!--<%=cp%>/game/blackjack/start.do-->
+	      			<a href="{% url 'mLearn:excel' %}"><h5 class="card-title" style="font-size:3vw">Excel</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+
+
+
+		<div class="text-center">
+			<input type="button" id="loadMore" class="btn btn-success" value="더보기" />
+			<input type="button" class="btn btn-success" value="돌아가기" onclick="history.back(); return false ;" />
+		</div>
+	</div>
+
+  	<p class="totop"><a href="#top">Back to top</a></p>
+
+</div>
+{% endblock %}

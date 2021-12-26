@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+
+#body_index{
+	background-image:url("{% static 'images/main/city_night.jpg' %}");
+}
+
+img {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+/* @media screen and (max-width:768px){
+  .card-body{max-height:2em; padding:0;align:center;}
+  .card-title{margin:0;align:center;font-size: 0.3em; }
+} */
+</style>
+
+<div id="body_index" class="p-5">
+
+    <!-- main content -->
+    <div class="row col-md-10 offset-md-1 d-flex justify-content-around">
+
+        <div class="col-4 mb-4">
+            <div class="card" id="more" >
+				<a href="{% url 'mLearn:download' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_1.jpg'%}" alt="Card image" style="width:100%"></a>
+				<div class="card-body p-1 d-flex justify-content-center">
+					<a href="{% url 'mLearn:download' %}"><h5 class="card-title" style="font-size:3vw">Download</h5></a>
+				</div>
+            </div>
+        </div>
+        <div class="col-4 mb-4">
+            <div class="card" id="more" >
+				<a href="{% url 'mLearn:beautifulSoup' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_1.jpg'%}" alt="Card image" style="width:100%"></a>
+				<div class="card-body p-1 d-flex justify-content-center">
+					<a href="{% url 'mLearn:beautifulSoup' %}"><h5 class="card-title" style="font-size:3vw">BeautifulSoup</h5></a>
+				</div>
+            </div>
+        </div>
+		<div class="col-4 mb-4">
+            <div class="card" id="more" >
+				<a href="{% url 'mLearn:pandas' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_1.jpg'%}" alt="Card image" style="width:100%"></a>
+				<div class="card-body p-1 d-flex justify-content-center">
+					<a href="{% url 'mLearn:pandas' %}"><h5 class="card-title" style="font-size:3vw">Pandas</h5></a>
+				</div>
+            </div>
+        </div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:select' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_3.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+                    <!--<%=cp%>/game/blackjack/start.do-->
+	      			<a href="{% url 'mLearn:select' %}"><h5 class="card-title" style="font-size:3vw">Select</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+        <div class="col-4 mb-4">
+            <div class="card" id="more"  >
+                <a href="{% url 'mLearn:path' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_2.jpg'%}" alt="Card image" style="width:100%"></a>
+                <div class="card-body p-1 d-flex justify-content-center">
+                    <a href="{% url 'mLearn:path' %}"> <h5 class="card-title" style="font-size:3vw">Path</h5></a>
+                </div>
+            </div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+                <!--<%=cp%>/tutorial/tutorialRequest.do-->
+	    		<a href="{% url 'mLearn:login' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_4.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:login' %}"><h5 class="card-title" style="font-size:3vw">Login</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+                <!--<%=cp%>/hshop/hshopMain.do-->
+	    		<a href="{% url 'mLearn:weather' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_5.jpg' %}" alt="Card image" style="width:100%">
+	    		</a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+                    <!--<%=cp%>/hshop/AdminItemForm.do-->
+	      			<a href="{% url 'mLearn:weather' %}"><h5 class="card-title" style="font-size:3vw">API </h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:selenium' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_11.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+                    <!--<%=cp%>/board/boardWrite.do {}-->
+	      			<a href="{% url 'mLearn:selenium' %}"><h5 class="card-title" style="font-size:3vw">Selenium</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:mysql' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:mysql' %}"><h5 class="card-title" style="font-size:3vw">Mysql</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:datatype' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_8.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:datatype' %}"><h5 class="card-title" style="font-size:3vw">DataType</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:plot' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_8.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:plot' %}"><h5 class="card-title" style="font-size:3vw">Plot</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:image' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_8.jpg'%}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:image' %}"><h5 class="card-title" style="font-size:3vw">Image</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:scikit' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:scikit' %}"><h5 class="card-title" style="font-size:3vw">Scikit_Learn</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:conversion' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:conversion' %}"><h5 class="card-title" style="font-size:3vw">Conversion</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:mnist' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:mnist' %}"><h5 class="card-title" style="font-size:3vw">문자인식</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:lang' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:lang' %}"><h5 class="card-title" style="font-size:3vw">Language분석</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:langTest' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:langTest' %}"><h5 class="card-title" style="font-size:3vw">Language평가</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:fat' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:fat' %}"><h5 class="card-title" style="font-size:3vw">비만 평가</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:mushroom' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:mushroom' %}"><h5 class="card-title" style="font-size:3vw">랜덤포레스트</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+		<div class="col-4 mb-4">
+			<div class="card" id="more" >
+	    		<a href="{% url 'mLearn:tensor' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_9.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:tensor' %}"><h5 class="card-title" style="font-size:3vw">TensorFlow</h5></a>
+	    		</div>
+	  		</div>
+		</div>
+
+
+
+
+		<div class="text-center">
+			<input type="button" id="loadMore" class="btn btn-success" value="더보기" />
+			<input type="button" class="btn btn-success" value="돌아가기" onclick="history.back(); return false ;" />
+		</div>
+	</div>
+
+  	<p class="totop"><a href="#top">Back to top</a></p>
+
+</div>
+{% endblock %}

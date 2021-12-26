@@ -1,0 +1,178 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+
+#body_index{
+	background-image:url("{% static '/image/main/city_night.jpg' %}");
+}
+
+img {
+  display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+/* @media screen and (max-width:768px){
+  .card-body{max-height:2em; padding:0;align:center;}
+  .card-title{margin:0;align:center;font-size: 0.3em; }
+} */
+
+</style>
+
+<script type="text/javascript">
+
+function addPro(){
+	var obj1 = document.addForm;
+
+	if(obj1.projectname.value==""){alert("아이디를 입력해주세요"+screen.width + '50'); return;}
+
+<!--	var projectname = obj1.projectname.value;-->
+
+<!--	alert(projectname);-->
+
+<!--	window.location.href = '/main/index/'+ projectname + '/';-->
+
+	var dataList1 = {
+		"projectname" : obj1.projectname.value,
+		'csrfmiddlewaretoken': '{{ csrf_token }}'
+	};
+
+	alert(dataList1);
+
+	var url1 = "{% url 'main:index' %}";
+
+	$.ajax({
+		type : "POST",
+		url : url1,
+		async : false,
+		data : dataList1,
+		success : function(data){
+			console.log("data: ", data)
+
+
+		}
+	});
+}
+
+<!--첫화면 에니메이션 처리-->
+$(function(){
+
+    $("dd").slice(0, 6).show(); 					// select the first 6
+
+    $("#loadMore").click(function(e){ 				// click event for load more
+        e.preventDefault();
+        $("dd:hidden").slice(0, 3).show(); 			// select next 3 hidden divs and show them
+        if($("div:hidden").length == 0){ 			// check if any hidden divs still exist
+        	$("#loadMore").fadeOut('slow');
+            	//alert("No more divs"); 			// alert if there are none left
+        	}
+        $('html,body').animate({
+            scrollTop: $(this).offset().top
+        }, 1500);
+    });
+});
+
+</script>
+<script src="{% static 'js/more_load.js' %}"></script>
+
+<div id="body_index" class="p-5">
+
+    <!-- main content -->
+    <div class="row col-md-10 offset-md-1 d-flex justify-content-around">
+
+		<dd class="col-4 mb-4" style="display:none;">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'python:pyHome' %}"><img class="card-img-top img-fluid rounded" src="{% static '/image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'python:pyHome' %}"><h6 class="card-title" style="font-size:3vw">Python</h6></a>
+	    		</div>
+	  		</div>
+		</dd>
+		<dd class="col-4 mb-4" style="display:none;">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'course:courseHome' %}"><img class="card-img-top img-fluid rounded" src="{% static '/image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'course:courseHome' %}"><h6 class="card-title" style="font-size:3vw">Django</h6></a>
+	    		</div>
+	  		</div>
+		</dd>
+		<dd class="col-4 mb-4" style="display:none;">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'mLearn:mLearnHome' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'mLearn:mLearnHome' %}"><h6 class="card-title" style="font-size:3vw">mLearn</h6></a>
+	    		</div>
+	  		</div>
+		</dd>
+		<dd class="col-4 mb-4" style="display:none;">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'bootstrap:bsHome' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'bootstrap:bsHome' %}"><h7 class="card-title" style="font-size:3vw">Bootstrap</h7></a>
+	    		</div>
+	  		</div>
+		</dd>
+		{{projectname}}
+		{% if projectname %}
+		<dd class="col-4 mb-4" style="display:none;">
+			<div class="card" id="more"  >
+	    		<a href="{% url 'bootstrap:bsHome' %}"><img class="card-img-top img-fluid rounded" src="{% static 'image/green/green_6.jpg' %}" alt="Card image" style="width:100%"></a>
+	    		<div class="card-body p-1 d-flex justify-content-center">
+	      			<a href="{% url 'bootstrap:bsHome' %}"><h7 class="card-title" style="font-size:3vw">{{projectname}}</h7></a>
+	    		</div>
+	  		</div>
+		</dd>
+		{% endif %}
+
+	</div>
+
+	<div class="text-center">
+<!--		<a type="button" class="btn btn-success" href="#addModal" data-toggle="modal">add Project</a>-->
+		<input type="button" id="loadMore" class="btn btn-success" value="더보기" />
+		<input type="button" class="btn btn-success" value="돌아가기" onclick="history.back(); return false ;" />
+	</div>
+
+  	<p class="totop"><a href="#top">Back to top</a></p>
+
+	<!--==========================================================================-->
+	<!-- The Add Modal 이용시 -->
+	<div class="modal" id="addModal">
+	  <div class="modal-dialog">
+
+	    <div class="modal-content">
+
+	    <!-- // 폼형태로 입력하여 ajax 형태로 전달 -->
+		<form name="addForm" method="post" onSubmit="return addCheck()">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">프로젝트명</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <span class="fa fa-envelope"></span> 프로젝트명 <br />
+			<input type="text" class="form-control" name="projectname" /><br /> <br />
+	      </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	      	<button type="button" class="btn" data-dismiss="modal">Close</button>
+	      	<button type="button" class="btn btn-success" onclick="addPro()">추가</button>
+	      </div>
+
+		</form>
+	    </div>
+	  </div>
+	</div>
+    <!--end add modal-->
+
+</div>     <!-- end of body_container -->
+{% endblock %}

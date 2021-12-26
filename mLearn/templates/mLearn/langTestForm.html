@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!--# option2: 각자 필드에 적용(특정 항목 수정가능) -->
+<div class="content_langTestForm">
+
+  <!--#option2 각자 필드를 부트스트랩 적용(crispy)-->
+  <form method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ form.media }}
+
+    <div class="col">
+        <textarea name="text" rows="15" cols="150">{{text}}</textarea>
+        <p><input type="submit" value="언어 판정">{{lang}}</p>
+    </div>
+
+    <div class="d-flex justify-content-around">
+	    <input class="col-3 btn btn-secondary form-control" type="button" value="이전화면"  onclick="history.back(); return false;">
+		<!--<input class="col-3 btn btn-primary form-control" type="submit" value="언어 판별">-->
+    </div>
+
+  </form>
+
+</div>
+{% endblock %}
+
+
+
